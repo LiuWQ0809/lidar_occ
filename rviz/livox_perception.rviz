@@ -1,0 +1,159 @@
+Panels:
+  - Class: rviz_common/Displays
+    Help Height: 68
+    Name: Displays
+    Property Tree Widget:
+      Expanded:
+        - /Global Options1
+        - /TF1
+        - /PointCloud21
+        - /OccupancyGrid1
+      Splitter Ratio: 0.5
+    Tree Height: 671
+  - Class: rviz_common/Selection
+    Name: Selection
+  - Class: rviz_common/Views
+    Expanded:
+      - /Current View1
+    Name: Views
+    Splitter Ratio: 0.5
+  - Class: rviz_common/Time
+    Name: Time
+    SyncSource: PointCloud2
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Alpha: 0.5
+      Cell Size: 1
+      Class: rviz_default_plugins/Grid
+      Color: 160; 160; 160
+      Enabled: true
+      Line Style:
+        Line Width: 0.03
+        Value: Lines
+      Name: Reference Grid
+      Normal Cell Count: 0
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Plane: XY
+      Plane Cell Count: 40
+      Reference Frame: <Fixed Frame>
+      Value: true
+    - Class: rviz_default_plugins/TF
+      Enabled: true
+      Frame Timeout: 15
+      Frames:
+        All Enabled: false
+        center_camera:
+          Value: true
+      Marker Scale: 0.3
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+      Tree:
+        center_camera:
+          Value: true
+      Update Interval: 0
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz_default_plugins/PointCloud2
+      Color: 160; 200; 255
+      Color Transformer: FlatColor
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Max Intensity: 4096
+      Min Color: 0; 0; 0
+      Min Intensity: 0
+      Name: PointCloud2
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 2
+      Size (m): 0.05
+      Style: Points
+      Topic: /livox/camera_points
+      Unreliable: false
+      Use Fixed Frame: true
+      Value: true
+    - Alpha: 0.7
+      Class: rviz_default_plugins/OccupancyGrid
+      Color Scheme: map
+      Draw Behind: false
+      Enabled: true
+      Name: OccupancyGrid
+      Topic: /livox/occupancy
+      Unreliable: false
+      Value: true
+  Enabled: true
+  Global Options:
+    Background Color: 16; 18; 20
+    Default Light: true
+    Fixed Frame: center_camera
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz_default_plugins/Interact
+      Hide Inactive Objects: true
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+    - Class: rviz_default_plugins/FocusCamera
+    - Class: rviz_default_plugins/Measure
+    - Class: rviz_default_plugins/SetInitialPose
+      Topic: /initialpose
+    - Class: rviz_default_plugins/SetGoal
+      Topic: /move_base_simple/goal
+  Transformation:
+    Current: rviz_default_plugins/TF
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Distance: 20
+      Enable Stereo Rendering:
+        Stereo Eye Separation: 0.06
+        Stereo Focal Distance: 1
+        Swap Stereo Eyes: false
+        Value: false
+      Focal Point:
+        X: 0
+        Y: 0
+        Z: 0
+      Focal Shape Fixed Size: true
+      Focal Shape Size: 0.05
+      Invert Z Axis: false
+      Name: Orbit
+      Near Clip Distance: 0.01
+      Pitch: 0.785
+      Target Frame: center_camera
+      Value: Orbit (rviz_default_plugins)
+      Yaw: 0.785
+    Saved: ~
+Window Geometry:
+  Displays:
+    collapsed: false
+  Height: 900
+  Hide Left Dock: false
+  Hide Right Dock: false
+  QMainWindow State: 000000ff00000000fd00000004000000000000016a000002fdefc000000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b00000246010000012000000003fb000000120056006900650077007300200054006f006f006c00000001e10000009b00000246010000012000000003fb0000002000540069006d00650020004c0069006e006500200054006f006f006c007300000000e1000000280000005a010000012000000003fb0000000c0044006900730070006c0061007900730100000028000001d7000000f0010000012000000003fb0000000a0056006900650077007300000000180000005a0000005a0100000120000000030000024a00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  Selection:
+    collapsed: false
+  Time:
+    collapsed: false
+  Tool Properties:
+    collapsed: false
+  Views:
+    collapsed: false
+  Width: 1600
+  X: 50
+  Y: 50

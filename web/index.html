@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Livox 感知可视化</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/eventemitter2@6.4.9/lib/eventemitter2.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/roslib@1.3.0/build/roslib.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/three@0.162.0/examples/js/controls/OrbitControls.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/gh/RobotWebTools/ros2djs@0.10.0/build/ros2d.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/gh/RobotWebTools/ros3djs@1.0.0-beta.2/build/ros3d.min.js"></script>
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Livox Mid-360 Occupancy 可视化</h1>
+      <div class="connection">
+        <label>
+          WebSocket 地址
+          <input id="wsUrl" type="text" placeholder="ws://192.168.1.10:9090" />
+        </label>
+        <button id="connectBtn">连接</button>
+        <span id="status" class="status">未连接</span>
+      </div>
+      <div class="topics">
+        <label>
+          点云 Topic
+          <input id="pointTopic" type="text" value="/livox/camera_points" />
+        </label>
+        <label>
+          占据栅格 Topic
+          <input id="gridTopic" type="text" value="/livox/occupancy" />
+        </label>
+        <button id="reloadBtn">应用</button>
+      </div>
+    </header>
+    <main>
+      <div id="viewer"></div>
+      <aside>
+        <section>
+          <h2>视角控制</h2>
+          <ul>
+            <li>拖动：左键拖拽</li>
+            <li>旋转：右键拖拽</li>
+            <li>缩放：滚轮</li>
+          </ul>
+        </section>
+        <section>
+          <h2>图层</h2>
+          <label class="toggle">
+            <input id="togglePointCloud" type="checkbox" checked />
+            <span>显示点云</span>
+          </label>
+          <label class="toggle">
+            <input id="toggleGrid" type="checkbox" checked />
+            <span>显示占据栅格</span>
+          </label>
+        </section>
+        <section>
+          <h2>状态日志</h2>
+          <div id="log"></div>
+        </section>
+      </aside>
+    </main>
+  </body>
+</html>

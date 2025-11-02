@@ -1,0 +1,149 @@
+:root {
+  color-scheme: dark;
+  --background: #151719;
+  --panel: #1f2327;
+  --accent: #3ba1ff;
+  --text: #dce2eb;
+  --muted: #808a9a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--background);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  padding: 16px 24px;
+  background: var(--panel);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 32px;
+  align-items: center;
+  border-bottom: 1px solid #2e3338;
+}
+
+header h1 {
+  flex: 1 1 260px;
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.connection,
+.topics {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.85rem;
+  gap: 4px;
+  color: var(--muted);
+}
+
+input[type="text"] {
+  background: #111417;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  padding: 6px 10px;
+  color: var(--text);
+  min-width: 240px;
+}
+
+button {
+  background: var(--accent);
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  color: #041423;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(1.1);
+}
+
+.status {
+  font-size: 0.9rem;
+  color: #ff7777;
+}
+
+.status.ok {
+  color: #66e188;
+}
+
+main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 0;
+  min-height: 0;
+}
+
+#viewer {
+  position: relative;
+  height: 100%;
+  background: #090b0d;
+}
+
+aside {
+  background: var(--panel);
+  border-left: 1px solid #2e3338;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+aside h2 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+ul {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+}
+
+#log {
+  background: #111417;
+  border-radius: 6px;
+  padding: 12px;
+  min-height: 120px;
+  font-size: 0.85rem;
+  overflow-y: auto;
+  border: 1px solid #30363d;
+}
+
+@media (max-width: 1024px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+
+  aside {
+    border-left: none;
+    border-top: 1px solid #2e3338;
+  }
+}
