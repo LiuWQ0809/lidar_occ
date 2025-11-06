@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-cd /home/nvidia/liuwq/demo_lidar_perception
+cd /home/nvidia/liuwq/lidar_occ
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKSPACE_ROOT="${SCRIPT_DIR}"
@@ -61,4 +61,4 @@ LAUNCH_PID=$!
 echo "Launch process started with PID: $LAUNCH_PID"
 echo $LAUNCH_PID > "${WORKSPACE_ROOT}/.livox_launch.pid"
 
-wait $LAUNCH_PID
+# wait $LAUNCH_PID

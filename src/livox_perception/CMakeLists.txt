@@ -19,12 +19,14 @@ find_package(PCL REQUIRED COMPONENTS common filters)
 find_package(pcl_conversions REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(CUDAToolkit REQUIRED)
+find_package(OpenCV REQUIRED)
 find_package(livox_ros_driver2 REQUIRED)
 
 include_directories(
   include
   ${PCL_INCLUDE_DIRS}
   ${EIGEN3_INCLUDE_DIR}
+  ${OpenCV_INCLUDE_DIRS}
 )
 
 link_directories(${PCL_LIBRARY_DIRS})
@@ -69,6 +71,7 @@ target_include_directories(livox_perception_node
 target_link_libraries(livox_perception_node
   livox_perception_cuda
   ${PCL_LIBRARIES}
+  ${OpenCV_LIBRARIES}
 )
 
 target_compile_options(livox_perception_node PRIVATE -Wall -Wextra -Wpedantic)
