@@ -1,0 +1,33 @@
+livox_perception_node:
+  ros__parameters:
+    lidar_topic: "/livox/lidar"
+    output_frame: "center_camera"
+    grid_resolution: 0.1
+    grid_width: 30.0
+    grid_height: 6.0
+    grid_origin_x: -15.0
+    grid_origin_y: -3.0
+    grid_origin_z: -2.0
+    min_distance: 0.1
+    max_forward: 15.0
+    max_backward: 15.0
+    max_left: 5.0
+    max_right: 5.0
+    min_height: -0.2
+    max_height: 2.0
+    invalid_rect_front: 0.1
+    invalid_rect_back: 0.6
+    invalid_rect_right: 0.6
+    invalid_rect_left: 0.0
+    voxel_leaf_size: 0.1
+    tracker_occupancy_increase: 0.6
+    tracker_decay: 0.02
+    tracker_min_probability: 0.05
+    tracker_max_probability: 0.98
+    tracker_occupied_threshold: 0.65
+    lidar_to_camera_extrinsic: [0.0087896171295762555, -0.99995767027190419, -0.0026622674480113479,
+      -0.20499999999999999, 0.00093490604571245953, 0.0026705879971036925, -0.99999607642824218,
+      1.2050000000000001, 0.99996118533156964, 0.0087870551846044812, 0.00095834013107244957,
+      0.14999999999999999, 0.0, 0.0, 0.0, 1.0]
+    pointcloud_topic: "/livox/camera_points"
+    log_directory: "logs"
