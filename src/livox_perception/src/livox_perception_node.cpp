@@ -90,9 +90,15 @@ class LivoxPerceptionNode : public rclcpp::Node {
     }
 
     // 加载camera到body的转换矩阵
-    const std::string calibration_file =
+    const std::string calibration_file_param =
         this->declare_parameter<std::string>("calibration_file", 
-            "/home/nvidia/liuwq/demo_lidar_perception/calibration/front_left.yaml");
+            "calibration/front_left.yaml");
+    // 如果是相对路径，相对于当前工作目录拼接完整路径
+    std::string calibration_file = calibration_file_param;
+    if (calibration_file.front() != '/') {
+      std::filesystem::path cwd = std::filesystem::current_path();
+      calibration_file = (cwd / calibration_file_param).string();
+    }
     LoadCameraToBodyTransform(calibration_file);
 
     cuda_integrator_ = std::make_shared<CudaOccupancyIntegrator>();
