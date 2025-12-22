@@ -1,6 +1,6 @@
 # Livox Mid-360 占据栅格感知工程
 
-该工程在 Jetson Orin AGX (JetPack 6.2) 平台上针对 Livox Mid-360 激光雷达构建实时占据栅格地图输出，输入 ROS2 topic 为 `/livox/lidar` 的点云。项目使用 C++ (Google style) 实现，基于 ROS2 Humble/Foxy + colcon，结合 CPU 版 PCL 预处理与 CUDA 占据栅格融合，以 tracking 模块稳定输出。
+该工程在 Jetson Orin AGX (JetPack 6.2) 平台上针对 蜂鸟 D1 激光雷达构建实时占据栅格地图输出，输入 ROS2 topic 为 `/iv_points` 的点云。项目使用 C++ (Google style) 实现，基于 ROS2 Humble/Foxy + colcon，结合 CPU 版 PCL 预处理与 CUDA 占据栅格融合，以 tracking 模块稳定输出。
 
 ## 功能概述
 - **点云预处理**：利用 PCL 对点云进行 NaN 清理、盲区剔除、空间裁剪与体素栅格降采样，遵循感知范围前/后 15 m、左右 3 m。并排除雷达右侧 0.5 m、前 2 cm、后 0.5 m 的矩形无效区。
@@ -48,8 +48,8 @@ lidar_perception/
    ```
 
 ## 运行参数
-- `lidar_topic`：默认 `/livox/lidar`。
-- `/livox/lidar` Topic 类型为 `livox_ros_driver2/msg/CustomMsg`，来自 Livox ROS Driver 2。
+- `lidar_topic`：默认 `/iv_points`。
+- `/iv_points` Topic 类型为 `sensor_msgs/msg/PointCloud2`。
 - `grid_resolution`：默认 0.1 m，覆盖前后 30 m × 左右 6 m 区域。
 - `invalid_rect_front/back/right/left`：Livox 自车保护区定义，默认匹配 Mid-360 安装要求。
 - `tracker_*`：时序平滑参数，可按场景调整响应速度与抑噪能力。
@@ -59,7 +59,7 @@ lidar_perception/
 - `min_height/max_height`：点云高度过滤范围，默认仅保留 [-0.3 m, 1.7 m] 内的目标。
 
 ## RViz2 可视化
-1. 启动 Livox 感知节点（确保 `/livox/lidar` 有数据）：
+1. 启动感知节点（确保 `/iv_points` 有数据）：
    ```bash
    cd /workdir/lidar_perception
    ./run_livox_perception.sh
@@ -90,7 +90,7 @@ lidar_perception/
 - **GridTracker**：帧间概率积累 + 衰减机制，控制占据阈值，减少瞬时噪点对结果的影响。
 
 ## 调试建议
-- 检查 `/livox/lidar` 是否发布 `sensor_msgs/PointCloud2`；必要时使用 `ros2 topic echo` 或 RViz 验证。
+- 检查 `/iv_points` 是否发布 `sensor_msgs/msg/PointCloud2`；必要时使用 `ros2 topic echo` 或 RViz 验证。
 - 若需 CPU-only 调试，可在 CMake 中去掉 CUDA 库并在 `GridMapper` 中直接使用 CPU 累积逻辑。
 - 对于不同安装高度，可通过参数调整 `min_height/max_height` 与 map 原点提升对地面/障碍的过滤正确性。
 

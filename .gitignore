@@ -39,3 +39,13 @@
 
 # debug information files
 *.dwo
+
+
+# build
+build
+install
+log
+logs
+
+# pid
+.livox_launch.pid

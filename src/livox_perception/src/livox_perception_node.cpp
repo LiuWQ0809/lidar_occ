@@ -21,7 +21,6 @@
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "std_msgs/msg/header.hpp"
-#include "livox_ros_driver2/msg/custom_msg.hpp"
 
 #include <filesystem>
 
@@ -35,7 +34,7 @@ namespace livox_perception {
 class LivoxPerceptionNode : public rclcpp::Node {
  public:
   LivoxPerceptionNode() : Node("livox_perception_node") {
-    lidar_topic_ = this->declare_parameter<std::string>("lidar_topic", "/livox/lidar");
+    lidar_topic_ = this->declare_parameter<std::string>("lidar_topic", "/iv_points");
     output_frame_ = this->declare_parameter<std::string>("output_frame", "center_camera");
     grid_params_.resolution = this->declare_parameter("grid_resolution", 0.1);
     grid_params_.width_m = this->declare_parameter("grid_width", 30.0);
@@ -115,7 +114,7 @@ class LivoxPerceptionNode : public rclcpp::Node {
 
     rclcpp::SensorDataQoS qos;
     qos.keep_last(5).best_effort().durability_volatile();
-    subscription_ = this->create_subscription<livox_ros_driver2::msg::CustomMsg>(
+    subscription_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(
         lidar_topic_, qos,
         std::bind(&LivoxPerceptionNode::OnPointCloud, this, std::placeholders::_1));
 
@@ -123,15 +122,9 @@ class LivoxPerceptionNode : public rclcpp::Node {
   }
 
  private:
-  void OnPointCloud(const livox_ros_driver2::msg::CustomMsg::SharedPtr msg) {
+  void OnPointCloud(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
     auto lidar_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZ>>();
-    lidar_cloud->reserve(msg->point_num);
-    for (const auto & point : msg->points) {
-      if (!std::isfinite(point.x) || !std::isfinite(point.y) || !std::isfinite(point.z)) {
-        continue;
-      }
-      lidar_cloud->emplace_back(point.x, point.y, point.z);
-    }
+    pcl::fromROSMsg(*msg, *lidar_cloud);
 
     // 修改：在雷达坐标系下进行预处理和建图
     auto filtered_lidar = preprocessor_->Filter(lidar_cloud);
@@ -177,7 +170,7 @@ class LivoxPerceptionNode : public rclcpp::Node {
     pointcloud_msg.header.stamp = msg->header.stamp;
     pointcloud_pub_->publish(pointcloud_msg);
 
-    WriteLogEntry(msg->header, msg->point_num, filtered_lidar->size(), occupied, free);
+    WriteLogEntry(msg->header, lidar_cloud->size(), filtered_lidar->size(), occupied, free);
 
     occupancy_pub_->publish(std::move(occupancy_msg));
   }
@@ -196,7 +189,7 @@ class LivoxPerceptionNode : public rclcpp::Node {
   std::unique_ptr<GridMapper> grid_mapper_;
   std::unique_ptr<GridTracker> tracker_;
 
-  rclcpp::Subscription<livox_ros_driver2::msg::CustomMsg>::SharedPtr subscription_;
+  rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr subscription_;
   rclcpp::Publisher<nav_msgs::msg::OccupancyGrid>::SharedPtr occupancy_pub_;
   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pointcloud_pub_;
   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr lidar_pointcloud_pub_;  // 新增发布器

@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
-cd /home/nvidia/liuwq/demo_lidar_perception
-
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKSPACE_ROOT="${SCRIPT_DIR}"
+cd "${WORKSPACE_ROOT}"
 PROCESS_PATTERN="livox_perception.launch"
 PID_FILE="${WORKSPACE_ROOT}/.livox_launch.pid"
 

@@ -20,7 +20,6 @@ find_package(pcl_conversions REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(CUDAToolkit REQUIRED)
 find_package(OpenCV REQUIRED)
-find_package(livox_ros_driver2 REQUIRED)
 
 include_directories(
   include
@@ -86,7 +85,6 @@ ament_target_dependencies(livox_perception_node
   tf2_ros
   tf2_geometry_msgs
   pcl_conversions
-  livox_ros_driver2
 )
 
 install(TARGETS

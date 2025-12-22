@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
-cd /home/nvidia/liuwq/lidar_occ
-
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKSPACE_ROOT="${SCRIPT_DIR}"
+cd "${WORKSPACE_ROOT}"
 ROS_DISTRO="${ROS_DISTRO:-humble}"
 PROCESS_PATTERN="livox_perception.launch"
 

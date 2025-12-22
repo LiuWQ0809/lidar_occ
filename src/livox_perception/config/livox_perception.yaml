@@ -1,6 +1,6 @@
 livox_perception_node:
   ros__parameters:
-    lidar_topic: "/livox/lidar"
+    lidar_topic: "/iv_points"
     output_frame: "center_camera"
     grid_resolution: 0.1
     grid_width: 30.0

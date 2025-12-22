@@ -2,7 +2,6 @@
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import PointCloud2
-from livox_ros_driver2.msg import CustomMsg
 import numpy as np
 from sensor_msgs_py import point_cloud2
 import os
@@ -17,10 +16,10 @@ class PointCloudSaver(Node):
         self.save_dir = './debug_pointclouds'
         os.makedirs(self.save_dir, exist_ok=True)
         
-        # 订阅原始Livox点云 (CustomMsg格式)
+        # 订阅原始点云 (PointCloud2格式)
         self.raw_sub = self.create_subscription(
-            CustomMsg,
-            '/livox/lidar',
+            PointCloud2,
+            '/iv_points',
             self.raw_pointcloud_callback,
             10)
         
@@ -36,22 +35,6 @@ class PointCloudSaver(Node):
         
         self.get_logger().info(f'点云保存节点已启动，保存目录: {self.save_dir}')
         self.get_logger().info('等待接收点云数据...')
-
-    def custom_msg_to_array(self, custom_msg):
-        """将Livox CustomMsg转换为numpy数组"""
-        try:
-            points_list = []
-            for point in custom_msg.points:
-                # Livox CustomPoint包含x, y, z, reflectivity, tag, line等字段
-                points_list.append([point.x, point.y, point.z])
-            
-            if len(points_list) == 0:
-                return None
-                
-            return np.array(points_list, dtype=np.float32)
-        except Exception as e:
-            self.get_logger().error(f'Livox点云数据转换失败: {e}')
-            return None
 
     def pointcloud2_to_array(self, pointcloud_msg):
         """将PointCloud2消息转换为numpy数组"""
@@ -104,18 +87,18 @@ class PointCloudSaver(Node):
             return False
 
     def raw_pointcloud_callback(self, msg):
-        """原始Livox点云回调函数"""
+        """原始点云回调函数"""
         if self.raw_saved:
             return
             
-        self.get_logger().info('接收到原始Livox点云数据，开始保存...')
+        self.get_logger().info('接收到原始点云数据，开始保存...')
         
         # 转换点云数据
-        points_array = self.custom_msg_to_array(msg)
+        points_array = self.pointcloud2_to_array(msg)
         
         # 生成文件名
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        filename = f'raw_livox_pointcloud_{timestamp}.pcd'
+        filename = f'raw_pointcloud_{timestamp}.pcd'
         
         # 保存PCD文件
         if self.save_pointcloud_as_pcd(points_array, filename):

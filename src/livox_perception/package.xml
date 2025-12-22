@@ -24,19 +24,16 @@
   <build_depend>Eigen3</build_depend>
   <build_depend>CUDA</build_depend>
   <build_depend>OpenCV</build_depend>
-  <build_depend>livox_ros_driver2</build_depend>
 
   <build_export_depend>PCL</build_export_depend>
   <build_export_depend>Eigen3</build_export_depend>
   <build_export_depend>CUDA</build_export_depend>
   <build_export_depend>OpenCV</build_export_depend>
-  <build_export_depend>livox_ros_driver2</build_export_depend>
 
   <exec_depend>PCL</exec_depend>
   <exec_depend>Eigen3</exec_depend>
   <exec_depend>CUDA</exec_depend>
   <exec_depend>OpenCV</exec_depend>
-  <exec_depend>livox_ros_driver2</exec_depend>
 
   <member_of_group>rosidl_interface_packages</member_of_group>
 
