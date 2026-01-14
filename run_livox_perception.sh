@@ -4,7 +4,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKSPACE_ROOT="${SCRIPT_DIR}"
 cd "${WORKSPACE_ROOT}"
 ROS_DISTRO="${ROS_DISTRO:-humble}"
-PROCESS_PATTERN="livox_perception.launch"
+PROCESS_PATTERN="livox_perception"
 
 if [ ! -f "/opt/ros/${ROS_DISTRO}/setup.bash" ]; then
   echo "[ERROR] ROS 2 distribution '${ROS_DISTRO}' is not installed under /opt/ros." >&2

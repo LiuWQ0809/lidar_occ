@@ -112,8 +112,8 @@ class LivoxPerceptionNode : public rclcpp::Node {
 
     InitializeLogFile(log_directory_param);
 
-    rclcpp::SensorDataQoS qos;
-    qos.keep_last(5).best_effort().durability_volatile();
+    rclcpp::QoS qos(5);
+    qos.reliable().durability_volatile();
     subscription_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(
         lidar_topic_, qos,
         std::bind(&LivoxPerceptionNode::OnPointCloud, this, std::placeholders::_1));

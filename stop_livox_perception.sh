@@ -3,7 +3,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKSPACE_ROOT="${SCRIPT_DIR}"
 cd "${WORKSPACE_ROOT}"
-PROCESS_PATTERN="livox_perception.launch"
+PROCESS_PATTERN="livox_perception"
 PID_FILE="${WORKSPACE_ROOT}/.livox_launch.pid"
 
 echo "========================================"
