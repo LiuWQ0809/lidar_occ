@@ -27,7 +27,7 @@ set -u
 # 检查进程是否已启动，如果启动则kill掉
 echo "========================================"
 echo "Checking for existing Livox Perception processes..."
-EXISTING_PIDS=$(pgrep -f "${PROCESS_PATTERN}" || true)
+EXISTING_PIDS=$(pgrep -f "${PROCESS_PATTERN}" | grep -v "^$$\$" || true)
 if [ ! -z "$EXISTING_PIDS" ]; then
     echo "Found existing process(es):"
     echo "$EXISTING_PIDS"
@@ -36,7 +36,7 @@ if [ ! -z "$EXISTING_PIDS" ]; then
     sleep 2
     
     # 验证进程是否已被kill
-    if pgrep -f "${PROCESS_PATTERN}" > /dev/null 2>&1; then
+    if pgrep -f "${PROCESS_PATTERN}" | grep -v "^$$\$" > /dev/null 2>&1; then
         echo "Warning: Failed to kill existing processes. Some processes may still be running."
     else
         echo "Successfully killed existing processes."

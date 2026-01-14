@@ -23,7 +23,7 @@ if [ -f "$PID_FILE" ]; then
 fi
 
 # 再通过进程名查找任何残留进程
-EXISTING_PIDS=$(pgrep -f "${PROCESS_PATTERN}" || true)
+EXISTING_PIDS=$(pgrep -f "${PROCESS_PATTERN}" | grep -v "^$$\$" || true)
 if [ ! -z "$EXISTING_PIDS" ]; then
     echo "Found remaining Livox Perception process(es):"
     echo "$EXISTING_PIDS"
@@ -33,9 +33,9 @@ if [ ! -z "$EXISTING_PIDS" ]; then
 fi
 
 # 最后验证进程是否都已被清理
-if pgrep -f "${PROCESS_PATTERN}" > /dev/null 2>&1; then
+if pgrep -f "${PROCESS_PATTERN}" | grep -v "^$$\$" > /dev/null 2>&1; then
     echo "Warning: Some processes may still be running. Please check manually."
-    pgrep -f "${PROCESS_PATTERN}" || true
+    pgrep -f "${PROCESS_PATTERN}" | grep -v "^$$\$" || true
 else
     echo "Successfully stopped all Livox Perception processes."
 fi
