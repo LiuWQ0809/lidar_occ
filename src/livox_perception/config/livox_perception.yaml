@@ -20,9 +20,9 @@ livox_perception_node:
     invalid_rect_right: 0.6
     invalid_rect_left: 0.0
     voxel_leaf_size: 0.1
-    tracker_occupancy_increase: 0.6
-    tracker_decay: 0.02
-    tracker_min_probability: 0.05
+    tracker_occupancy_increase: 0.7
+    tracker_decay: 0.5
+    tracker_min_probability: 0.1
     tracker_max_probability: 0.98
     tracker_occupied_threshold: 0.65
     lidar_to_camera_extrinsic: [0.0084909, -0.999892, -0.012023, 0.025, 0.00134585, 0.0120348,
